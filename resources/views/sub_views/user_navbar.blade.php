@@ -46,11 +46,7 @@
 
 
         </li>
-        <li class="nav-item">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_contact">
-                Launch Default Modal
-            </button>
-        </li>
+
 
 
     </ul>
