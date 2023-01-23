@@ -38,7 +38,7 @@
         <li class="nav-item d-flex align-items-center">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="button" class="btn btn-block btn-outline-info btn-xs">
+                <button type="submit" class="btn btn-block btn-outline-info btn-xs">
                     {{-- <i class="fa fa-bell"></i> --}}
                     Logout
                 </button>
@@ -46,9 +46,6 @@
 
 
         </li>
-
-
-
     </ul>
 </nav>
 <!-- /.navbar -->

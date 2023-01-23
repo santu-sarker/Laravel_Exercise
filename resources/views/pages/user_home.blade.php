@@ -25,6 +25,9 @@ Home Page
 <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 <!-- Toastr -->
 <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+{{-- select 2 --}}
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 @endsection
 
 {{-- custom js scripts --}}
@@ -53,13 +56,16 @@ Home Page
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="../../plugins/toastr/toastr.min.js"></script>
+{{-- select 2 --}}
+
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
 <!-- Page specific script -->
 <script>
     $(function () {
     $("#contact_datatable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
 
   });
 
@@ -72,12 +78,18 @@ Home Page
             case 'warning':
                 toastr.warning("{{ Session::get('msg') }}");
                 break;
-            case 'danger':
-                toastr.danger("{{ Session::get('msg') }}");
+
+            case 'info':
+                toastr.info("{{ Session::get('msg') }}");
                 break;
         }
 
   @endif
+  @if (Session::has('errors'))
+  let msg_data = "{{ Session::get('errors') }}";
+      console.log(msg_data);
+  @endif
+
 </script>
 <script src="{{ asset('js/contact.js') }}"></script>
 @endsection
@@ -88,7 +100,11 @@ Home Page
 
 {{-- main content section start --}}
 @section('main_content')
-
+{{-- @php
+if(Session::has('errors'){
+dd($errors)
+})
+@endphp --}}
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -177,14 +193,17 @@ Home Page
                                 <tbody>
                                     @foreach ($contacts as $contact)
                                     <tr>
-                                        <td>{{ $contact->contact_id }}</td>
-                                        <td>{{ $contact->name }}</td>
-                                        <td>{{ $contact->email }}</td>
-                                        <td>{{ $contact->phone }}</td>
-                                        <td>{{ $contact->company }}</td>
-                                        <td>{{ $contact->gender }}</td>
-                                        <td>{{ $contact->address }}</td>
-                                        <td><button class="btn btn-outline-warning btn-xs">Edit</button></td>
+                                        {{-- giving each td a class so that it will be easy to find td on edit modal tr
+                                        row --}}
+                                        <td class="id">{{ $contact->contact_id }}</td>
+                                        <td class="name">{{ $contact->name }}</td>
+                                        <td class="email">{{ $contact->email }}</td>
+                                        <td class="phone">{{ $contact->phone }}</td>
+                                        <td class="company">{{ $contact->company }}</td>
+                                        <td class="gender">{{ $contact->gender }}</td>
+                                        <td class="address">{{ $contact->address }}</td>
+                                        <td><button class="btn btn-outline-warning btn-xs edit_contact"
+                                                value="{{ $contact->contact_id }}">Edit</button></td>
                                         <td><button class="btn btn-outline-danger btn-xs delete_contact"
                                                 value="{{$contact->contact_id}}">Delete</button></td>
                                     </tr>

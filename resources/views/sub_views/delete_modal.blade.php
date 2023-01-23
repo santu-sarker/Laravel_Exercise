@@ -3,7 +3,7 @@
 <div class="modal fade" id="delete_modal" tabindex="-1" aria-labelledby="confirm_modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="contact/delete_contact" method="POST">
+            <form action="{{ route('delete_contact') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Contact</h5>

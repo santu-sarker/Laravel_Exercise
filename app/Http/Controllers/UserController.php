@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         // $contacts = Contact::where('user_id', '=', Auth::id())->get();
