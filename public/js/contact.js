@@ -155,27 +155,67 @@ $(document).ready(function () {
                     edit_gender: edit_gender,
                 },
                 success: function (response) {
-                    let edit_msg = response.msg;
+                    // resetting all error field validation error messages
+                    // name field
+                    $("#edit_error_name").addClass("d-none");
+                    $("#edit_name").removeClass("is-invalid");
+
+                    //email field
+                    $("#edit_error_email").addClass("d-none");
+                    $("#edit_email").removeClass("is-invalid");
+                    //phone field
+                    $("#edit_error_phone").addClass("d-none");
+                    $("#edit_phone").removeClass("is-invalid");
+                    //address field
+                    $("#edit_error_address").addClass("d-none");
+                    $("#edit_address").removeClass("is-invalid");
+                    //gender field
+                    $("#edit_gender").addClass("d-none");
+
                     switch (response.type) {
                         case "success":
                             toastr.success(response.msg);
-
                             $("#edit_modal").modal("hide");
                             window.location.reload(); //reloading whole page
                             break;
                         case "warning":
-                            Object.keys(edit_msg).forEach(function (key) {
-                                // console.log(key + " : " + error_msg[key]);
-                                if (key == "edit_gender") {
-                                    $("#" + key).removeClass("d-none");
-                                } else {
-                                    $("#" + key).addClass("is-invalid");
-                                    $("#" + key)
-                                        .next()
-                                        .removeClass("d-none");
-                                    $("#" + key)
-                                        .next()
-                                        .html(edit_msg[key]);
+                            Object.keys(response.msg).forEach(function (key) {
+                                // console.log(key + " : " + response.msg[key]);
+                                switch (key) {
+                                    case "edit_name":
+                                        $("#edit_error_name")
+                                            .removeClass("d-none")
+                                            .html(response.msg[key]);
+                                        $("#edit_name").addClass("is-invalid");
+
+                                        break;
+
+                                    case "edit_email":
+                                        $("#edit_error_email")
+                                            .removeClass("d-none")
+                                            .html(response.msg[key]);
+                                        $("#edit_email").addClass("is-invalid");
+                                        break;
+
+                                    case "edit_phone":
+                                        $("#edit_error_phone")
+                                            .removeClass("d-none")
+                                            .html(response.msg[key]);
+                                        $("#edit_phone").addClass("is-invalid");
+                                        break;
+
+                                    case "edit_address":
+                                        $("#edit_error_address")
+                                            .removeClass("d-none")
+                                            .html(response.msg[key]);
+                                        $("#edit_address").addClass(
+                                            "is-invalid"
+                                        );
+                                        break;
+
+                                    case "edit_gender":
+                                        $("#edit_gender").removeClass("d-none");
+                                        break;
                                 }
                             });
                             break;

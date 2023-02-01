@@ -1,7 +1,7 @@
 @extends('layouts.user_layout')
 
 @section('page_title')
-Home Page
+Create New Contact
 @endsection
 
 {{-- custom css file --}}
@@ -15,7 +15,7 @@ Home Page
 <!-- IonIcons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="./css/admin_dashboard.css">
+<link rel="stylesheet" href="{{ asset('css/admin_dashboard.css') }}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -61,37 +61,11 @@ Home Page
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
 <!-- Page specific script -->
 <script>
-    $(function () {
-    $("#contact_datatable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
 
-  });
-
-  @if (Session::has('msg'))
-        let type="{{ Session::get('type')}}";
-        switch(type){
-            case 'success':
-                toastr.success("{{ Session::get('msg') }}");
-                break;
-            case 'warning':
-                toastr.warning("{{ Session::get('msg') }}");
-                break;
-
-            case 'info':
-                toastr.info("{{ Session::get('msg') }}");
-                break;
-        }
-
-  @endif
-  @if (Session::has('errors'))
-  let msg_data = "{{ Session::get('errors') }}";
-      console.log(msg_data);
-  @endif
 
 </script>
 <script src="{{ asset('js/contact.js') }}"></script>
+<script src="{{ asset('js/global_contact.js') }}"></script>
 @endsection
 @section('navbar')
 @include('sub_views.user_navbar')
@@ -109,8 +83,8 @@ dd($errors)
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Entertech BD</span>
     </a>
 
@@ -119,7 +93,7 @@ dd($errors)
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -163,7 +137,7 @@ dd($errors)
                 </li>
 
                 <li class="nav-item ">
-                    <a href="#" class="nav-link ">
+                    <a href="{{ url("/global_contact") }}" class="nav-link ">
 
                         <p>
                             Global Contact
@@ -203,61 +177,103 @@ dd($errors)
 <div class="content-wrapper">
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content ">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title text-center">All Contact Information</h3>
+            <div class="row justify-content-center">
+                <div class="col-11 ">
+                    <div class="card mt-5">
+                        <div class="card-header row ">
+                            <div class="col-sm-10 col-md-6">
+                                <h2 class="card-title text-center">Contact Details</h2>
+                            </div>
+                            <div class="col-sm-10 col-md-6 d-flex justify-content-end">
+
+                                {{-- <div class="mr-2">
+                                    <a href="{{ url("global_contact/add_to_contact/{$details->id}") }}">
+                                        <button class="btn btn-outline-primary btn-xs">
+                                            Add To Your Contact
+                                        </button>
+                                    </a>
+                                </div> --}}
+                                @can('eligible_to_add',$contact)
+                                <div class="mr-2">
+                                    <a href="{{ url("global_contact/add_to_contact/{$details->id}") }}">
+                                        <button class="btn btn-outline-primary btn-xs">
+                                            Add To Your Contact
+                                        </button>
+                                    </a>
+                                </div>
+                                @endcan
+                                @can('eligible_to_manipulate',$contact)
+                                <div class="mr-2">
+                                    <button class="btn btn-outline-warning btn-xs edit_global_contact"
+                                        value="{{ $details->id }}">
+                                        Edit
+                                    </button>
+                                </div>
+
+                                <div class="mr-2">
+                                    <a href="{{ url("global_contact/delete/{$details->id}") }}">
+                                        <button class="btn btn-outline-danger btn-xs">
+                                            Delete
+                                        </button>
+                                    </a>
+                                </div>
+                                @endcan
+
+
+                            </div>
+
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="contact_datatable" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Company</th>
-                                        <th>Gender</th>
-                                        <th>Address</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($contacts as $contact)
-                                    <tr>
-                                        {{-- giving each td a class so that it will be easy to find td on edit modal tr
-                                        row --}}
-                                        <td class="id">{{ $contact->contact_id }}</td>
-                                        <td class="name">{{ $contact->name }}</td>
-                                        <td class="email">{{ $contact->email }}</td>
-                                        <td class="phone">{{ $contact->phone }}</td>
-                                        <td class="company">{{ $contact->company }}</td>
-                                        <td class="gender">{{ $contact->gender }}</td>
-                                        <td class="address">{{ $contact->address }}</td>
-                                        <td><button class="btn btn-outline-warning btn-xs edit_contact"
-                                                value="{{ $contact->contact_id }}">Edit</button></td>
-                                        {{-- <td>
-                                            @can('delete' , App\Models\Contact::class)
-                                            <button class="btn btn-outline-danger btn-xs delete_contact"
-                                                value="{{$contact->contact_id}}">Delete</button>
-                                            @endcan
+                        <div class="card-body justify-content-center">
+                            <table class="table table-bordered">
 
-                                        </td> --}}
-                                        <td> <button class="btn btn-outline-danger btn-xs delete_contact"
-                                                value="{{$contact->contact_id}}">Delete</button>
-                                        </td>
+                                <tbody>
+                                    <tr>
+                                        <th>Contact ID</th>
+                                        <td>{{ $details->id }}</td>
+
                                     </tr>
-                                    @endforeach
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{{ $details->name }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ $details->email }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{{ $details->phone }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Company</th>
+                                        <td>{{ $details->company }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ $details->address }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Gender</th>
+                                        <td>{{ $details->gender }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Created By</th>
+                                        <td>{{ $details->created_by }}</td>
+
+                                    </tr>
 
 
 
                                 </tbody>
-
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -280,4 +296,5 @@ dd($errors)
 @include('sub_views.add_contact')
 @include('sub_views.edit_modal')
 @include('sub_views.delete_modal')
+@include('sub_views.edit_global_modal')
 @endsection

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function add_contact(Request $request)
     {
 
@@ -43,7 +47,10 @@ class ContactController extends Controller
 
     public function delete_contact(Request $request)
     {
+        // $contact = Contact::find(2);
         $deleteable_contact = Contact::where('id', '=', $request->delete_id)->first();
+        // dd($contact);
+        // $this->authorize('delete', $deleteable_contact);
 
         if ($deleteable_contact) {
             $deleteable_contact->delete();

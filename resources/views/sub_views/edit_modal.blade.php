@@ -40,7 +40,7 @@
                             <div class="col-md-10 col-sm-12">
                                 <input type="string" name="edit_phone" id="edit_phone" class="form-control col-12"
                                     placeholder="Enter Contact Number" autofocus required />
-                                <div class="invalid-feedback text-left d-none" id="edit_error_number">
+                                <div class="invalid-feedback text-left d-none" id="edit_error_phone">
 
                                 </div>
                             </div>

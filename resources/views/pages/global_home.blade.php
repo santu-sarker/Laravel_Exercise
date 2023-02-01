@@ -1,7 +1,7 @@
 @extends('layouts.user_layout')
 
 @section('page_title')
-Home Page
+Global Contact
 @endsection
 
 {{-- custom css file --}}
@@ -15,7 +15,7 @@ Home Page
 <!-- IonIcons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="./css/admin_dashboard.css">
+<link rel="stylesheet" href="{{ asset('css/admin_dashboard.css') }}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -63,24 +63,24 @@ Home Page
 <script>
     $(function () {
     $("#contact_datatable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
 
   });
 
-  @if (Session::has('msg'))
+    @if (Session::has('global_msg'))
         let type="{{ Session::get('type')}}";
         switch(type){
             case 'success':
-                toastr.success("{{ Session::get('msg') }}");
+                toastr.success("{{ Session::get('global_msg') }}");
                 break;
             case 'warning':
-                toastr.warning("{{ Session::get('msg') }}");
+                toastr.warning("{{ Session::get('global_msg') }}");
                 break;
 
             case 'info':
-                toastr.info("{{ Session::get('msg') }}");
+                toastr.info("{{ Session::get('global_msg') }}");
                 break;
         }
 
@@ -108,9 +108,9 @@ dd($errors)
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+    <a href="{{ url('/home') }}" class="brand-link">
+        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Entertech BD</span>
     </a>
 
@@ -119,7 +119,7 @@ dd($errors)
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -209,10 +209,10 @@ dd($errors)
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title text-center">All Contact Information</h3>
+                            <h3 class="card-title text-center">Global Contacts Available</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body justify-content-center">
                             <table id="contact_datatable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -223,8 +223,8 @@ dd($errors)
                                         <th>Company</th>
                                         <th>Gender</th>
                                         <th>Address</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th>View</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -232,25 +232,28 @@ dd($errors)
                                     <tr>
                                         {{-- giving each td a class so that it will be easy to find td on edit modal tr
                                         row --}}
-                                        <td class="id">{{ $contact->contact_id }}</td>
+                                        <td class="id">{{ $contact->id }}</td>
                                         <td class="name">{{ $contact->name }}</td>
                                         <td class="email">{{ $contact->email }}</td>
                                         <td class="phone">{{ $contact->phone }}</td>
                                         <td class="company">{{ $contact->company }}</td>
                                         <td class="gender">{{ $contact->gender }}</td>
                                         <td class="address">{{ $contact->address }}</td>
-                                        <td><button class="btn btn-outline-warning btn-xs edit_contact"
-                                                value="{{ $contact->contact_id }}">Edit</button></td>
+                                        <td>
+                                            <a href="{{ url("global_contact/{$contact->id}") }}">
+                                                <button class="btn btn-outline-primary btn-xs">
+                                                    Details
+                                                </button>
+                                            </a>
+                                        </td>
                                         {{-- <td>
                                             @can('delete' , App\Models\Contact::class)
-                                            <button class="btn btn-outline-danger btn-xs delete_contact"
+                                            <button class=" btn btn-outline-danger btn-xs delete_contact"
                                                 value="{{$contact->contact_id}}">Delete</button>
                                             @endcan
 
                                         </td> --}}
-                                        <td> <button class="btn btn-outline-danger btn-xs delete_contact"
-                                                value="{{$contact->contact_id}}">Delete</button>
-                                        </td>
+
                                     </tr>
                                     @endforeach
 
