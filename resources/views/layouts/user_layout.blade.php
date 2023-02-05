@@ -15,6 +15,7 @@
     <link href="{{ asset('css/bootstrap-reboot.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/button.css') }}">
     {{-- custom css file includes here --}}
     @yield('css-scripts')
 

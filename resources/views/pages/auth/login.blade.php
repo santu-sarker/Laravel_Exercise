@@ -6,7 +6,9 @@ Login Page
 
 {{-- custom css file --}}
 @section('css-scripts')
-<link rel="stylesheet" href="{{ asset('css/user_navbar.css') }}">
+{{--
+<link rel="stylesheet" href="{{ asset('css/user_navbar.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('css/login_registration.css') }}">
 @endsection
 
 {{-- custom js scripts --}}
@@ -18,25 +20,26 @@ Login Page
 
 @endsection --}}
 @section('main_content')
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
-            <div class="card ">
+<div class="container login_container">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-5 col-sm-10">
+            <div class="card main_card">
                 <div class="card-header text-center">
-                    <h2>Login </h2>
+                    <h4 class="card_title">Login</h4>
                 </div>
 
                 <div class="card-body">
                     <form method="POST" action="#">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email
+                        <div class="form-group row justify-content-center">
+                            <label for="email" class="col-lg-3 col-sm-10 col-form-label ">Email
                             </label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    placeholder="Enter your Name" autofocus>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -46,14 +49,14 @@ Login Page
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password')
+                        <div class="form-group row justify-content-center mt-3">
+                            <label for="password" class="col-lg-3 col-sm-10 col-form-label">{{ __('Password')
                                 }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="current-password">
+                                    required autocomplete="current-password" placeholder="Enter password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -63,7 +66,7 @@ Login Page
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{
@@ -74,20 +77,20 @@ Login Page
                                     </label>
                                 </div>
                             </div>
+                        </div> --}}
+
+                        <div class="form-group row mt-4 px-3">
+
+                            <button type="submit" class="btn btn-primary btn-block button-32 submit_btn">
+                                {{ __('Login') }}
+                            </button>
+
+                            <a class="btn btn-link btn-block mt-3" href="{{ url('/register') }}">
+                                Don't have an account? create here
+                            </a>
+
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/register') }}">
-                                    {{ 'Create New Account' }}
-                                </a>
-
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>

@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add A New Contact</h5>
+                <h5 class="modal-title card_title" id="exampleModalLabel">Add A New Contact</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,7 +87,8 @@
                         </div>
 
                         <div class="row my-3">
-                            <button class="btn btn-lg btn-primary btn-block" id="create_contact" type="submit">
+                            <button class="btn btn-primary btn-block button-32 submit_btn" id="create_contact"
+                                type="submit">
                                 Add User
                             </button>
                         </div>

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    // let data = "{{ Js::from($contacts) }}";
+    // console.log(data);
+
     $("#add_contact").on("click", function (event) {
         event.preventDefault();
         $("#add_modal").modal("show");
@@ -132,13 +135,13 @@ $(document).ready(function () {
 
         $("#edit_contact").click(function (e) {
             e.preventDefault();
-
+            console.log("clicked");
             let contact_id = $("input[name=contact_id]").val();
             let edit_name = $("input[name=edit_name]").val();
             let edit_email = $("input[name=edit_email]").val();
             let edit_phone = $("input[name=edit_phone]").val();
             let edit_company = $("#edit_company").find(":selected").val();
-            // console.log(edit_company);
+            console.log(edit_name, edit_email, edit_company);
             let edit_address = $("input[name=edit_address]").val();
             let edit_gender = $("input[name='edit_gender']:checked").val();
 
@@ -187,7 +190,7 @@ $(document).ready(function () {
                                             .removeClass("d-none")
                                             .html(response.msg[key]);
                                         $("#edit_name").addClass("is-invalid");
-
+                                        console.log(key);
                                         break;
 
                                     case "edit_email":

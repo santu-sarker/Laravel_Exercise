@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Contact</h5>
+                <h5 class="modal-title card_title" id="exampleModalLabel">Update Contact</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="row my-3">
-                            <button class="btn btn-lg btn-outline-warning btn-block" id="global_contact" type="submit">
+                            <button class="btn btn-lg  btn-block button-32 edit_btn" id="global_contact" type="submit">
                                 Save Changes
                             </button>
                         </div>

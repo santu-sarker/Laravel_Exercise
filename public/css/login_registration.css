@@ -1,0 +1,30 @@
+:root {
+    --title-color: rgb(30, 6, 102);
+    --label-color: rgb(5, 1, 15);
+    --header-border: rgba(14, 37, 119, 0.308);
+    --delete-btn: red;
+}
+
+body {
+    background-color: #f9f8f6;
+    background-image: linear-gradient(150deg, #f3f3f3 0%, #e9e4dd 100%);
+}
+.login_container {
+    height: 100vh;
+}
+.main_card {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.card-header {
+    border-bottom: 1px solid var(--header-border);
+}
+.card-body {
+    padding-top: 2rem !important;
+}
+.card_title {
+    color: var(--title-color);
+}
+
+label {
+    color: var(--label-color);
+}

@@ -7,7 +7,6 @@ use App\Models\Global_Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class globalContact extends Controller
@@ -56,7 +55,23 @@ class globalContact extends Controller
             $contact_details = Global_Contact::find($id);
             return response()->json($contact_details);
         }
-        $details = DB::table('global_contacts')->select([
+        // $details = DB::table('global_contacts')->select([
+        //     'id',
+        //     'name',
+        //     'email',
+        //     'phone',
+        //     'company',
+        //     'gender',
+        //     'address',
+        //     'user_id',
+        // ])
+        //     ->where('id', '=', $id)
+        //     ->addSelect([
+
+        //         DB::raw("(SELECT name from users where global_contacts.user_id = users.id) as created_by"),
+        //     ])
+        //     ->first();
+        $details = Global_Contact::select([
             'id',
             'name',
             'email',
@@ -69,10 +84,13 @@ class globalContact extends Controller
             ->where('id', '=', $id)
             ->addSelect([
                 // 'created_by' => DB::table('users')->select('name')->whereColumn('global_contacts.user_id', '=', 'users.id')->limit(1),
-                DB::raw("(SELECT name from users where global_contacts.user_id = users.id) as created_by"),
+                'created_by' => User::query()
+                    ->whereColumn('global_contacts.user_id', '=', 'users.id')
+                    ->select('name')->limit(1),
+                // DB::raw("(SELECT name from users where global_contacts.user_id = users.id) as created_by"),
             ])
             ->first();
-
+        // dd($details);
         if ($details) {
             $contact = Global_Contact::find($id);
             return view('pages.global_contact_details')

@@ -20,24 +20,25 @@ Registration Page
 
 @endsection --}}
 @section('main_content')
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h4 class="card_title">Registration Form</h4>
+<div class="container login_container">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-5 col-sm-10">
+            <div class="card main_card">
+                <div class="card-header text-center">
+                    <h4 class="card_title">Registration Form </h4>
                 </div>
 
                 <div class="card-body">
                     <form method="POST" action="">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <div class="form-group row justify-content-center">
+                            <label for="name" class="col-lg-3 col-sm-10 col-form-label ">{{ __('Name') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    name="name" value="{{ old('name') }}" required autocomplete="name"
+                                    placeholder="Enter Your Name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -47,13 +48,14 @@ Registration Page
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address')
-                                }}</label>
+                        <div class="form-group row justify-content-center mt-3">
 
-                            <div class="col-md-6">
+                            <label for="email" class="col-lg-3 col-sm-10 col-form-label ">{{ __('Email') }}</label>
+
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    placeholder="Your Email Address">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -62,13 +64,14 @@ Registration Page
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+                        <div class="form-group row justify-content-center mt-3">
+                            <label for="phone" class="col-lg-3 col-sm-10 col-form-label">Phone</label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="phone" type="number"
                                     class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                    value="{{ old('phone') }}" required autocomplete="phone">
+                                    value="{{ old('phone') }}" required autocomplete="phone"
+                                    placeholder="your Phone Number">
 
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
@@ -78,14 +81,14 @@ Registration Page
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password')
+                        <div class="form-group row justify-content-center mt-3">
+                            <label for="password" class="col-lg-3 col-sm-10 col-form-label">{{ __('Password')
                                 }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password">
+                                    required autocomplete="new-password" placeholder="Enter Your Password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -95,22 +98,21 @@ Registration Page
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm
+                        <div class="form-group row justify-content-center mt-3">
+                            <label for="password-confirm" class="col-lg-3 col-sm-10 col-form-label">{{ __('Confirm
                                 Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-9 col-sm-10">
                                 <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required autocomplete="new-password">
+                                    name="password_confirmation" required autocomplete="new-password"
+                                    placeholder="Confirm Your Password">
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-10">
-                                <button type="submit" class="btn btn-primary btn-block button-32 submit_btn">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
+                        <div class="form-group row mt-4 px-3">
+                            <button type="submit" class="btn btn-primary btn-block button-32 submit_btn">
+                                {{ __('Register') }}
+                            </button>
                         </div>
                     </form>
                 </div>

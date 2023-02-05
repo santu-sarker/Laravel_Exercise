@@ -91,6 +91,7 @@ Home Page
   @endif
 
 </script>
+
 <script src="{{ asset('js/contact.js') }}"></script>
 @endsection
 @section('navbar')

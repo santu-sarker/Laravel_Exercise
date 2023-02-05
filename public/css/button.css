@@ -1,0 +1,94 @@
+:root {
+    --title-color: rgb(30, 6, 102);
+    --label-color: rgba(13, 2, 39, 0.877);
+    --header-border: rgba(14, 37, 119, 0.308);
+    --submit-btn: #0a2647;
+    --submit-hover: #144272;
+    --edit-btn: #ca5811;
+    --edit-hover: #ff731d;
+    --delete-btn: red;
+}
+
+.card-header {
+    border-bottom: 1px solid var(--header-border) !important;
+}
+.card-body {
+    padding-top: 2rem !important;
+}
+.card_title {
+    color: var(--title-color);
+}
+
+label {
+    color: var(--label-color);
+}
+
+/* btn basic css */
+.button-32 {
+    background-color: #fff000;
+    border-radius: 18px !important;
+    color: #000;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    padding: 10px 15px;
+    text-align: center;
+    transition: 200ms !important;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 16px;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+}
+
+.button-32:not(:disabled):hover,
+.button-32:not(:disabled):focus {
+    outline: 0;
+    background: #0a7c60;
+    box-shadow: 0 0 0 2px rgba(3, 16, 34, 0.2),
+        0 3px 8px 0 rgba(8, 46, 30, 0.15);
+}
+
+.button-32:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+
+.submit_btn {
+    color: #ffffff !important;
+    background-color: var(--submit-btn) !important;
+}
+
+.submit_btn:not(:disabled):hover,
+.submit_btn:not(:disabled):focus {
+    background: var(--submit-hover) !important;
+
+    box-shadow: rgba(255, 255, 255, 0.2) 0 3px 15px inset,
+        rgba(0, 0, 0, 0.1) 0 3px 5px, rgba(0, 0, 0, 0.1) 0 10px 13px;
+    transform: scale(1.01) !important;
+}
+
+.edit_btn {
+    color: #ffffff !important;
+    background-color: var(--edit-btn) !important;
+}
+
+.edit_btn:not(:disabled):hover,
+.edit_btn:not(:disabled):focus {
+    background: var(--edit-hover) !important;
+
+    box-shadow: rgba(255, 255, 255, 0.2) 0 3px 15px inset,
+        rgba(0, 0, 0, 0.1) 0 3px 5px, rgba(0, 0, 0, 0.1) 0 10px 13px;
+    transform: scale(1.01) !important;
+}
+
+.btn-outline-warning {
+    color: var(--edit-btn) !important;
+}
+.btn-outline-warning:hover,
+.btn-outline-warning:focus {
+    background-color: var(--edit-hover) !important;
+    color: #ffffff !important;
+}

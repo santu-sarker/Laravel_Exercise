@@ -49,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         // Registration views
         Fortify::registerView(function () {
-            return view('pages.auth.user_registration');
+            return view('pages.auth.register');
         });
 
         Fortify::requestPasswordResetLinkView(function () {

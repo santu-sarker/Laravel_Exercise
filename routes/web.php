@@ -30,3 +30,5 @@ Route::post('global_contact/add_contact', [globalContact::class, 'create_contact
 Route::get('global_contact/add_to_contact/{id}', [globalContact::class, 'add_to_my_contacts']);
 Route::get('global_contact/delete/{id}', [globalContact::class, 'delete_contact']);
 Route::post('global_contact/edit_contact', [globalContact::class, 'edit_contact']);
+
+Route::get('/test', [UserController::class, 'test']);
