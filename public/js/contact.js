@@ -111,7 +111,11 @@ $(document).ready(function () {
         $(edit_phone).val(closest_tr.find(".phone").text());
         $(edit_address).val(closest_tr.find(".address").text());
         $(edit_company).val(closest_tr.find(".company").text());
-
+        console.log(
+            closest_tr.find(".name").text(),
+            closest_tr.find(".phone").text(),
+            closest_tr.find(".address").text()
+        );
         // for(let option in $() )
         // console.log(closest_tr.find(".company").text());
         let gender = closest_tr.find(".gender").text();
@@ -158,6 +162,7 @@ $(document).ready(function () {
                     edit_gender: edit_gender,
                 },
                 success: function (response) {
+                    console.log(response.msg);
                     // resetting all error field validation error messages
                     // name field
                     $("#edit_error_name").addClass("d-none");
@@ -179,7 +184,7 @@ $(document).ready(function () {
                         case "success":
                             toastr.success(response.msg);
                             $("#edit_modal").modal("hide");
-                            window.location.reload(); //reloading whole page
+                            // window.location.reload(); //reloading whole page
                             break;
                         case "warning":
                             Object.keys(response.msg).forEach(function (key) {
@@ -226,6 +231,10 @@ $(document).ready(function () {
                 },
                 error: function (error) {
                     console.log("error");
+                },
+                complete: function () {
+                    // Handle the complete event
+                    console.log("ajax completed ");
                 },
             });
         });

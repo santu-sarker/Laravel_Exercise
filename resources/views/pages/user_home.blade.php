@@ -22,12 +22,12 @@ Home Page
 <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 <!-- SweetAlert2 -->
-<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 <!-- Toastr -->
-<link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+<link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 {{-- select 2 --}}
-<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
-<link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
 {{-- custom js scripts --}}
@@ -53,9 +53,9 @@ Home Page
 <!-- AdminLTE -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <!-- SweetAlert2 -->
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Toastr -->
-<script src="../../plugins/toastr/toastr.min.js"></script>
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 {{-- select 2 --}}
 
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
@@ -76,7 +76,7 @@ Home Page
                 toastr.success("{{ Session::get('msg') }}");
                 break;
             case 'warning':
-                toastr.warning("{{ Session::get('msg') }}");
+                toastr.error("{{ Session::get('msg') }}");
                 break;
 
             case 'info':

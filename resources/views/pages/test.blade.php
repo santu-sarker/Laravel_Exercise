@@ -64,7 +64,10 @@ Home Page
     $(function () {
     $("#contact_datatable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      processing: true,
+        serverSide: true,
+        ajax: 'scripts/server_processing.php',
     }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
 
   });

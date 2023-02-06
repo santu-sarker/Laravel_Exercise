@@ -1,12 +1,15 @@
 :root {
+    --body-background: #f9f8f6;
     --title-color: rgb(30, 6, 102);
     --label-color: rgb(5, 1, 15);
     --header-border: rgba(14, 37, 119, 0.308);
     --delete-btn: red;
+    --icon-bg: rgb(183 160 109 / 39%);
+    --icon-color: rgb(47, 13, 148);
 }
 
 body {
-    background-color: #f9f8f6;
+    background-color: var(--body-background);
     background-image: linear-gradient(150deg, #f3f3f3 0%, #e9e4dd 100%);
 }
 .login_container {
@@ -27,4 +30,12 @@ body {
 
 label {
     color: var(--label-color);
+}
+
+.form_icon {
+    color: var(--icon-color);
+    background-color: var(--icon-bg);
+    border: 1px solid rgb(192, 192, 192);
+    margin-right: 2px;
+    margin-left: 0.5rem;
 }

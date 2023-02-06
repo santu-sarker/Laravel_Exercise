@@ -2,7 +2,9 @@
 
 namespace App\Actions\Fortify;
 
+use App\Http\Controllers\PhoneVerification;
 use App\Models\User;
+use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -28,15 +30,30 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'phone' => ['required', 'string', 'max:30'],
+            'phone' => ['required', 'numeric', 'digits_between:10,10', Rule::unique(User::class, 'phone')],
             'password' => $this->passwordRules(),
+        ], [
+            'phone.digits_between' => 'Phone number must be 10 digit',
         ])->validate();
 
-        return User::create([
+        $phn_verification = new PhoneVerification();
+        DB::beginTransaction(); // in  case sms sent fail then we will rollback
+        $id = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'phone' => $input['phone'],
             'password' => Hash::make($input['password']),
         ]);
+
+        //FAILED
+        $response = $phn_verification->send_sms($id['id'], (int) $input["phone"]);
+        // if sms sent failed then rollback
+        if ($response == "FAILED") {
+            DB::rollBack();
+        } else {
+            DB::commit(); // commit database transaction
+        }
+
+        return $id;
     }
 }
