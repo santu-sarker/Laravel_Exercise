@@ -15,7 +15,7 @@ Home Page
 <!-- IonIcons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="./css/admin_dashboard.css">
+<link rel="stylesheet" href="{{ asset('css/admin_dashboard.css') }}">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -58,11 +58,11 @@ Home Page
 <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 {{-- select 2 --}}
 
-<script src="../../plugins/select2/js/select2.full.min.js"></script>
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
     $(function () {
-    $("#contact_datatable").DataTable({
+    var contact_table = $("#contact_datatable").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
@@ -107,99 +107,7 @@ dd($errors)
 })
 @endphp --}}
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">Entertech BD</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-
-
-            </div>
-
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link ">
-
-                        <p>
-                            My Contact
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" id="add_contact" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Add Contact
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('home') }}" id="add_contact" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                your Personal Contact
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="nav-item ">
-                    <a href="#" class="nav-link ">
-
-                        <p>
-                            Global Contact
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url("/global_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                All Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url("global_contact/my_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Your Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url("/global_contact/add_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Create New
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-
-        </nav>
-        <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-</aside>
+@include('sub_views.sidebar')
 
 <div class="content-wrapper">
 

@@ -29,11 +29,11 @@ Login Page
                 <strong>{{ Session::get('msg') }}</strong>
             </div>
 
+            {{ Session::forget(['type','msg']) }}
             @endif
             <div class="card main_card">
                 <div class="card-header text-center">
                     <h4 class="card_title">Verify Your Phone Number</h4>
-
 
                 </div>
 

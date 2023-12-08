@@ -43,7 +43,8 @@
     @yield('modals')
     {{-- js scripts section --}}
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">

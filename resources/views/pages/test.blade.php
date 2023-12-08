@@ -17,17 +17,16 @@ Home Page
 <!-- Theme style -->
 <link rel="stylesheet" href="./css/admin_dashboard.css">
 <!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-<!-- SweetAlert2 -->
-<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
 <!-- Toastr -->
 <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
-{{-- select 2 --}}
-<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
-<link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+{{-- custom css file --}}
+<link rel="stylesheet" href="{{ asset('css/admin_dashboard.css') }}">
+
+
 @endsection
 
 {{-- custom js scripts --}}
@@ -38,6 +37,7 @@ Home Page
 
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script> --}}
 <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
@@ -53,25 +53,65 @@ Home Page
 <!-- AdminLTE -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <!-- SweetAlert2 -->
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+{{-- <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Toastr -->
 <script src="../../plugins/toastr/toastr.min.js"></script>
 {{-- select 2 --}}
 
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
 <!-- Page specific script -->
+<script src="{{ asset('js/server_side_operation.js') }}"></script>
 <script>
-    $(function () {
+    var load_table =  $(function () {
     $("#contact_datatable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      processing: true,
-        serverSide: true,
-        ajax: 'scripts/server_processing.php',
-    }).buttons().container().appendTo('#example1_wrapper .col-md-8:eq(0)');
+        // dom: 'Blfrtip',
+        "responsive": true,
+    //   "responsive": true, "lengthChange": false, "autoWidth": true,
+        "processing": true,
+        "serverSide": true,
+        "ajax": '{{ url('/server_side') }}',
+        "columns": [
+            {data: 'id' , name: 'id'},
+            {data: 'name' , name:'name',searchable:true},
+            {data: 'email' , name:'email',searchable:true,orderable:false},
+            {data: 'phone' , name:'phone',searchable:true,orderable:false},
+            {data: 'company' , name:'company',searchable:true},
+            {data: 'gender' , name:'gender',orderable:false},
+            {data: 'address' , name:'address',orderable:false},
+            {data: 'delete' , name:'delete',orderable:false},
+            // {
+            //     orderable:true,
+            //     searchable:true
+            // }
+
+        ],
+        columnDefs:[{
+            "targets": [7],
+            // "searchable": false,
+            // visible: true
+            className: 'text-center'
+        }]
+        ,
+        language:{
+            processing: ` <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                        </div>`,
+                        /*
+
+                       */
+        }
+
+    });
 
   });
 
+//   ----------------
+
+//   ----------------
   @if (Session::has('msg'))
         let type="{{ Session::get('type')}}";
         switch(type){
@@ -96,6 +136,7 @@ Home Page
 </script>
 
 <script src="{{ asset('js/contact.js') }}"></script>
+<script src="{{ asset('js/dashboard_edit.js') }}"></script>
 @endsection
 @section('navbar')
 @include('sub_views.user_navbar')
@@ -110,99 +151,7 @@ dd($errors)
 })
 @endphp --}}
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">Entertech BD</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-
-
-            </div>
-
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link ">
-
-                        <p>
-                            My Contact
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" id="add_contact" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Add Contact
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('home') }}" id="add_contact" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                your Personal Contact
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="nav-item ">
-                    <a href="#" class="nav-link ">
-
-                        <p>
-                            Global Contact
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url("/global_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                All Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url("global_contact/my_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Your Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url("/global_contact/add_contact") }}" class="nav-link">
-                                {{-- <i class="fa-regular fa"></i> --}}
-                                Create New
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-
-        </nav>
-        <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-</aside>
+@include('sub_views.sidebar')
 
 <div class="content-wrapper">
 
@@ -227,8 +176,9 @@ dd($errors)
                                         <th>Company</th>
                                         <th>Gender</th>
                                         <th>Address</th>
-                                        <th>Edit</th>
                                         <th>Delete</th>
+                                        {{-- <th>Edit</th>
+                                        <th>Delete</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>

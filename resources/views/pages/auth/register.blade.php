@@ -75,7 +75,7 @@ Registration Page
 
                             <div class="col-lg-9 col-sm-10  d-flex">
                                 <div class="col-2 p-0">
-                                    <input type="number" class="form-control pr-0" value="880" disabled>
+                                    <input type="number" class="form-control px-0 pl-1" value="880" disabled>
                                 </div>
                                 <div class="col-lg-10 col-sm-10 px-0">
                                     <input id="phone" type="number"

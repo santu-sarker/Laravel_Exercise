@@ -35,7 +35,7 @@ Route::middleware(['auth', 'phone_verified'])->group(function () {
     Route::get('global_contact', [globalContact::class, 'index']);
     Route::get('global_contact/add_contact', [globalContact::class, 'create_contact_view']);
     Route::get("global_contact/my_contact", [globalContact::class, 'my_contacts']);
-    Route::get('global_contact/{id}', [globalContact::class, 'global_contact_details']);
+    Route::get('global_contact/{id}', [globalContact::class, 'global_contact_details'])->name('global_details');
     Route::post('global_contact/add_contact', [globalContact::class, 'create_contact_store'])->name('global_add_contact');
 
 // global contact add  update delete action rout
@@ -44,4 +44,8 @@ Route::middleware(['auth', 'phone_verified'])->group(function () {
     Route::post('global_contact/edit_contact', [globalContact::class, 'edit_contact']);
 });
 
-Route::get('/test', [UserController::class, 'test']);
+Route::get('/server_side', [UserController::class, 'test']);
+Route::get('/server_side/delete/{id}', [UserController::class, 'delete']);
+Route::get("/phone", function () {
+    return view('pages.phone_verification');
+});

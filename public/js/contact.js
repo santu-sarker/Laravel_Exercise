@@ -248,4 +248,10 @@ $(document).ready(function () {
         $("#delete_modal").modal("show");
         // console.log($(this).text);
     });
+    // $(document).on("click", "#delete_confirm", function (event) {
+    //     event.preventDefault();
+    //     $("#delete_id").val(event.target.value);
+    //     $("#delete_modal").modal("show");
+    //     // console.log($(this).text);
+    // });
 });

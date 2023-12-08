@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Check_Role;
 use App\Http\Middleware\PhoneNotVerified;
 use App\Http\Middleware\PhoneVerified;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'phone_verified' => PhoneVerified::class,
         'phone_not_verified' => PhoneNotVerified::class,
+        'check_role' => Check_Role::class,
     ];
 }
